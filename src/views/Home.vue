@@ -13,7 +13,6 @@
 
     <div class="plugin-grid">
       <div v-for="plugin in filteredPlugins" :key="plugin.id" class="glass-card">
-        <div class="card-glow"></div>
         <div class="card-header">
           <div class="icon-wrapper">
             <img :src="plugin.icon" :alt="plugin.name" />
@@ -51,37 +50,34 @@ const filteredPlugins = computed(() => {
 <style scoped>
 .home-container { position: relative; }
 
-/* 头部背光效果 */
 .hero-section { text-align: center; position: relative; padding: 60px 0 80px; }
-.glow-effect { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 260px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,0,0,0) 70%); filter: blur(40px); pointer-events: none; }
+.glow-effect { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 260px; background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(0,0,0,0) 70%); filter: blur(40px); pointer-events: none; }
 
-.gradient-title { font-size: 44px; font-weight: 800; background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 16px; }
-.hero-subtitle { font-size: 16px; color: #94a3b8; max-width: 600px; margin: 0 auto 36px; font-weight: 400; }
+.gradient-title { font-size: 44px; font-weight: 800; background: var(--gradient-title); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 16px; }
+.hero-subtitle { font-size: 16px; color: var(--text-muted); max-width: 600px; margin: 0 auto 36px; font-weight: 400; }
 
-/* 搜索框高级渲染 */
 .search-wrapper { max-width: 520px; margin: 0 auto; position: relative; }
-.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #475569; }
-.search-wrapper input { width: 100%; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); padding: 14px 20px 14px 48px; border-radius: 10px; font-size: 14px; color: #ffffff; outline: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-.search-wrapper input:focus { border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); background: rgba(15, 23, 42, 0.9); }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-muted); }
+.search-wrapper input { width: 100%; background: var(--search-bg); border: 1px solid var(--border-color); padding: 14px 20px 14px 48px; border-radius: 10px; font-size: 14px; color: var(--text-title); outline: none; transition: all 0.3s ease; }
+.search-wrapper input:focus { border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
 
-/* 高级精致卡片 */
+/* 精致动态自适应卡片 */
 .plugin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px; }
-.glass-card { background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-.glass-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); }
+.glass-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: var(--shadow-card); }
+.glass-card:hover { transform: translateY(-5px); border-color: var(--border-card-hover); }
 
 .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-.icon-wrapper { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid rgba(255, 255, 255, 0.08); padding: 10px; border-radius: 12px; }
+.icon-wrapper { background: var(--bg-main); border: 1px solid var(--border-color); padding: 10px; border-radius: 12px; transition: background-color 0.3s; }
 .icon-wrapper img { width: 44px; height: 44px; border-radius: 6px; object-fit: cover; }
 
 .meta-zone { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-.category-tag { font-size: 11px; font-weight: 600; background: rgba(59,130,246,0.1); color: #60a5fa; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59,130,246,0.15); }
-.version-tag { font-size: 11px; color: #64748b; font-family: monospace; }
+.category-tag { font-size: 11px; font-weight: 600; background: rgba(59,130,246,0.1); color: #3b82f6; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59,130,246,0.15); }
+.version-tag { font-size: 11px; color: var(--text-muted); font-family: monospace; }
 
-.card-title { font-size: 20px; font-weight: 600; color: #ffffff; margin-bottom: 10px; letter-spacing: -0.3px; }
-.card-desc { font-size: 13.5px; color: #94a3b8; line-height: 1.6; margin-bottom: 28px; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card-title { font-size: 20px; font-weight: 600; color: var(--text-title); margin-bottom: 10px; letter-spacing: -0.3px; }
+.card-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* 炫酷大厂按钮微交互 */
-.neon-btn { display: flex; align-items: center; justify-content: space-between; background: #1e293b; color: #f1f5f9; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.2s; }
+.neon-btn { display: flex; align-items: center; justify-content: space-between; background: var(--bg-main); color: var(--text-title); padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1px solid var(--border-color); transition: all 0.2s; }
 .neon-btn:hover { background: #3b82f6; color: #ffffff; border-color: #3b82f6; }
 .arrow-icon { width: 14px; height: 14px; transition: transform 0.2s; }
 .neon-btn:hover .arrow-icon { transform: translateX(4px); }
