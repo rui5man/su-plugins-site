@@ -1,87 +1,115 @@
 <template>
-  <div v-if="plugin" class="detail-wrapper">
-    <router-link to="/" class="back-nav">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-      <span>返回产品集群控制台</span>
-    </router-link>
-
-    <div class="panel-header">
-      <div class="panel-header-left">
-        <div class="icon-shield">
-          <img :src="plugin.icon" :alt="plugin.name" />
+  <div v-if="plugin" class="modern-detail-wrapper">
+    <header class="plugin-hero">
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="hero-meta">
+            <span class="status-badge pulse">限时免费</span>
+            <span class="views-count">● 25 VIEWS</span>
+          </div>
+          <h1 class="plugin-title">{{ plugin.name }}</h1>
+          <p class="plugin-subtitle">{{ plugin.tagline }}</p>
+          
+          <a :href="plugin.rbzUrl || '#'" class="primary-download-btn" @click.prevent="handleSecureDownload">
+            <svg class="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>获取插件 {{ plugin.version }}</span>
+          </a>
         </div>
-        <div class="title-area">
-          <div class="badge-group">
-            <span class="badge-core">{{ plugin.category }}</span>
-            <span class="badge-ver">PRO {{ plugin.version }}</span>
-          </div>
-          <h1>{{ plugin.name }}</h1>
-          <p class="sub-specs">{{ plugin.tagline }}</p>
-        </div>
-      </div>
-      <div class="panel-header-right">
-        <span class="timestamp">最后编译：{{ plugin.updateDate }}</span>
-      </div>
-    </div>
-
-    <div class="dashboard-grid">
-      <div class="dashboard-main">
-        <section class="doc-section">
-          <h3 class="section-title">
-            <span class="indicator"></span>核心驱动特征与底层逻辑
-          </h3>
-          <div class="features-block">
-            <div v-for="(feature, idx) in plugin.features" :key="idx" class="feature-item-row">
-              <div class="row-num">0{{ idx + 1 }}</div>
-              <div class="row-content">{{ feature }}</div>
+        
+        <div class="hero-right">
+          <div class="video-container glass-card">
+            <iframe 
+              class="bilibili-player"
+              :src="`//player.bilibili.com/player.html?bvid=${plugin.bilibiliId}&page=1&high_quality=1&danmaku=0`" 
+              scrolling="no" 
+              border="0" 
+              frameborder="no" 
+              framespacing="0" 
+              allowfullscreen="true">
+            </iframe>
+            <div class="player-controls">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <div class="progress-bar"><div class="progress-fill"></div></div>
+              <span class="time">00:08 / 00:17</span>
             </div>
           </div>
-        </section>
-
-        <section class="doc-section">
-          <h3 class="section-title">
-            <span class="indicator"></span>运行环境与安装交付规范
-          </h3>
-          <div class="code-terminal">
-            <div class="terminal-header">
-              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-              <span class="terminal-title">Deployment Guide</span>
-            </div>
-            <div class="terminal-body">
-              <p class="comment"># 工业参数化插件安装规范说明</p>
-              <p class="code-text">{{ plugin.installGuide }}</p>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div class="dashboard-sidebar">
-        <div class="control-box">
-          <h3>天工定制交付节点</h3>
-          <div class="meta-list">
-            <div class="meta-item">
-              <span class="lbl">底层驱动</span>
-              <span class="val monospace">Ruby API 核心</span>
-            </div>
-            <div class="meta-item">
-              <span class="lbl">编译形态</span>
-              <span class="val security">🔒 已全代码加密保护</span>
-            </div>
-            <div class="meta-item">
-              <span class="lbl">运行授权</span>
-              <span class="val ok-status">● 节点正常</span>
-            </div>
-          </div>
-          <button class="primary-action" @click="triggerSecureRequest">
-            索取商用授权安装包 (.rbz)
-          </button>
         </div>
       </div>
+    </header>
+
+    <div class="main-layout">
+      <article class="content-left card">
+        <div id="core-features" class="section">
+          <h2 class="section-title">
+            <img src="/src/assets/rocket.png" alt="features" class="section-icon" />
+            核心功能介绍
+          </h2>
+          <div class="features-detailed-list">
+            <div class="detailed-feature">
+              <h3>1. <span class="emoji">✏️</span> 智能对齐 & 整体贴合 (双模式)</h3>
+              <p>一个工具，两种用法。通过 `Ctrl` 键灵活切换。</p>
+              
+              <div class="mode-block">
+                <h4>● 模式 A: 智能对齐 (默认)</h4>
+                <p>由于将两个板件或组件进行精确对齐。</p>
+                <div class="step-guide terminal-style">
+                  <p><strong>操作方法：</strong></p>
+                  <ol>
+                    <li>点击工具栏<strong>“智能对齐”</strong>图标。</li>
+                    <li>点击第一个对象（源）。<span class="comment">(注: 会自动穿透组，选中深层的板件)</span></li>
+                    <li>点击第二个对象（目标）。</li>
+                    <li>源对象会自动移动并对齐到目标对象。</li>
+                  </ol>
+                </div>
+              </div>
+              
+              <div class="mode-block">
+                <h4>● 模式 B: 整体贴合 (组到面/线) </h4>
+                <p>用于将整合板件、组件贴合到指定的平面或参考线上。</p>
+              </div>
+            </div>
+            
+            </div>
+        </div>
+      </article>
+
+      <aside class="content-right">
+        <div class="sticky-sidebar">
+          <nav id="doc-nav" class="sidebar-card">
+            <h3 class="card-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              内容导航
+            </h3>
+            <ul class="nav-links">
+              <li><a href="#core-features" class="nav-item">核心功能介绍</a></li>
+              <li><a href="#usage-tips" class="nav-item">使用小贴士</a></li>
+            </ul>
+          </nav>
+          
+          <section id="version-log" class="sidebar-card">
+            <h3 class="card-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              版本演进
+            </h3>
+            <div class="version-timeline">
+              <div v-for="(log, idx) in plugin.versionLogs" :key="idx" class="version-item">
+                <div class="version-header">
+                  <span class="v-num">V {{ log.version }}</span>
+                  <span class="v-date">{{ log.date }}</span>
+                </div>
+                <ul class="v-notes">
+                  <li v-for="(note, nIdx) in log.notes" :key="nIdx">{{ note }}</li>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </aside>
     </div>
   </div>
 
-  <div v-else class="empty-state">
-    <h3>未检索到相关生产节点描述</h3>
+  <div v-else class="empty-state card">
+    <h3>未检索到相关产品详页</h3>
     <router-link to="/">返回系统控制中心</router-link>
   </div>
 </template>
@@ -96,75 +124,101 @@ const plugin = computed(() => {
   return pluginsData.find(p => p.id === route.params.id);
 });
 
-const triggerSecureRequest = () => {
-  alert('【系统安全提示】天工定制全线插件已启动全代码加密。如需获取最新稳定版企业安装包(.rbz)或申请生产线绑定许可，请通过工厂内部对接通道联系开发团队获取凭证。');
+// 处理下载请求 (由于代码已加密保护，这里仍保留安全提示)
+const handleSecureDownload = () => {
+  if (plugin.value && plugin.value.id === 'opennewer') {
+    window.location.href = plugin.value.rbzUrl; // 免费插件直接下载
+  } else {
+    alert(`【系统安全提示】${plugin.value.name} (${plugin.value.version}) 企业级插件已启动全代码加密。如需索取企业内部授权安装包(.rbz)或申请生产线绑定许可，请通过工厂内部对接通道联系开发团队获取凭证。`);
+  }
 };
 </script>
 
 <style scoped>
-.back-nav { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-bottom: 32px; transition: color 0.2s; }
-.back-nav:hover { color: #3b82f6; }
+.modern-detail-wrapper { color: #0f172a; position: relative; }
 
-/* 头部面板自适应 */
-.panel-header { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 32px; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; box-shadow: var(--shadow-card); transition: all 0.1s ease; }
-.panel-header-left { display: flex; gap: 24px; align-items: center; }
-.icon-shield { background: var(--bg-main); border: 1px solid var(--border-color); padding: 14px; border-radius: 14px; transition: background-color 0.1s; }
-.icon-shield img { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; }
+/* 完全重构的首屏布局 (Hero Section) */
+.plugin-hero { background: #ffffff; padding: 100px 24px 80px; border-bottom: 1px solid #f1f5f9; position: relative; overflow: hidden; }
+.hero-content { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 60px; }
+.hero-left { flex: 1; }
+.hero-right { flex: 1; display: flex; justify-content: flex-end; }
 
-.badge-group { display: flex; gap: 8px; margin-bottom: 8px; }
-.badge-core { font-size: 11px; font-weight: 600; background: #3b82f6; color: #ffffff; padding: 2px 8px; border-radius: 4px; }
-.badge-ver { font-size: 11px; font-weight: 600; background: var(--bg-item); color: var(--text-main); padding: 2px 8px; border-radius: 4px; font-family: monospace; }
+.hero-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.status-badge { font-size: 11px; font-weight: 700; background: #2563eb; color: #ffffff; padding: 4px 12px; border-radius: 99px; letter-spacing: 0.5px; text-transform: uppercase; }
+.pulse { box-shadow: 0 0 0 rgba(37,99,235, 0.4); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,99,235, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(37,99,235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37,99,235, 0); } }
+.views-count { font-size: 12px; color: #64748b; }
 
-.title-area h1 { font-size: 28px; font-weight: 700; color: var(--text-title); letter-spacing: -0.5px; margin-bottom: 4px; }
-.sub-specs { font-size: 14px; color: var(--text-muted); }
-.timestamp { font-size: 12px; color: var(--text-muted); opacity: 0.7; font-family: monospace; }
+.plugin-title { font-size: 48px; font-weight: 800; color: #0f172a; margin-bottom: 16px; letter-spacing: -2px; line-height: 1.1; }
+.plugin-subtitle { font-size: 16px; color: #64748b; margin-bottom: 40px; line-height: 1.6; }
 
-/* 布局 */
-.dashboard-grid { display: flex; gap: 32px; }
-.dashboard-main { flex: 2; }
-.dashboard-sidebar { flex: 1; }
+/* 核心参考：醒目的下载按钮 */
+.primary-download-btn { display: inline-flex; align-items: center; gap: 12px; background: #2563eb; color: #ffffff; padding: 16px 28px; border-radius: 99px; font-size: 15px; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.2); }
+.primary-download-btn:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 15px 25px -8px rgba(37, 99, 235, 0.3); }
+.icon-download { width: 18px; height: 18px; }
 
-.doc-section { margin-bottom: 40px; }
-.section-title { font-size: 16px; font-weight: 600; color: var(--text-title); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-.indicator { width: 3px; height: 14px; background: #3b82f6; border-radius: 2px; }
+/* 核心参考：Bilibili 视频播放器悬浮效果 */
+.video-container { width: 100%; max-width: 580px; height: 330px; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.1); border: 1px solid rgba(15, 23, 42, 0.05); }
+.bilibili-player { width: 100%; height: 290px; border: none; }
+.player-controls { display: flex; align-items: center; gap: 12px; padding: 0 16px; height: 40px; background: rgba(15, 23, 42, 0.8); color: rgba(255, 255, 255, 0.6); font-size: 11px; font-family: monospace; border-top: 1px solid rgba(255,255,255,0.08); }
+.progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+.progress-fill { width: 35%; height: 100%; background: #2563eb; border-radius: 2px; }
 
-.features-block { display: flex; flex-direction: column; gap: 12px; }
-.feature-item-row { background: var(--bg-card); /* 核心修复：列表行背景必须强制沿用定义好的卡片背景色（白昼模式下为纯白） */ border: 1px solid var(--border-color); border-radius: 8px; padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; box-shadow: var(--shadow-card); transition: all 0.1s ease; }
-.row-num { font-family: monospace; font-weight: 700; color: #3b82f6; font-size: 14px; padding-top: 1px; }
-.row-content { font-size: 13.5px; color: var(--text-main); line-height: 1.6; }
+/* 主体布局与呼吸感 */
+.main-layout { max-width: 1200px; margin: -60px auto 0; padding: 0 24px; display: flex; gap: 32px; position: relative; z-index: 2; }
+.content-left { flex: 2; min-width: 0; }
+.content-right { flex: 1; min-width: 0; }
 
-/* 极客终端保持固定样式 */
-.code-terminal { background: var(--bg-terminal); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
-.terminal-header { background: rgba(0, 0, 0, 0.2); padding: 10px 16px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--border-color); }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot.red { background: #ef4444; }
-.dot.yellow { background: #f59e0b; }
-.dot.green { background: #10b981; }
-.terminal-title { color: #64748b; font-size: 11px; font-family: monospace; margin-left: 10px; }
-.terminal-body { padding: 20px; font-family: monospace; font-size: 13px; line-height: 1.7; }
-.comment { color: #475569; }
-.code-text { color: #cbd5e1; white-space: pre-line; }
+.card { background: #ffffff; border-radius: 16px; padding: 48px; border: 1px solid rgba(15, 23, 42, 0.03); box-shadow: 0 10px 20px rgba(15, 23, 42, 0.01); }
 
-/* 右侧侧边栏自适应 */
-.control-box { background: var(--bg-control); border: 1px solid var(--border-color); border-radius: 14px; padding: 24px; position: sticky; top: 100px; box-shadow: var(--shadow-card); transition: all 0.1s ease; }
-[data-theme="dark"] .control-box { border-color: rgba(59, 130, 246, 0.2); } /* 暗黑模式下侧边栏加点微弱蓝光 */
-.control-box h3 { font-size: 15px; font-weight: 600; color: var(--text-title); margin-bottom: 20px; }
-.meta-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
-.meta-item { display: flex; justify-content: space-between; font-size: 12.5px; }
-.lbl { color: var(--text-muted); }
-.val { color: var(--text-main); font-weight: 500; }
-.val.monospace { font-family: monospace; }
-.val.security { color: #f59e0b; }
-.val.ok-status { color: #10b981; font-weight: 600; }
+/* 详尽的功能内容部分 */
+.doc-section { margin-bottom: 60px; }
+.section-title { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 36px; display: flex; align-items: center; gap: 12px; letter-spacing: -0.5px; }
+.section-icon { width: 28px; height: 28px; }
 
-.primary-action { width: 100%; background: #3b82f6; color: #ffffff; border: none; padding: 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
-.primary-action:hover { background: #2563eb; }
+.features-detailed-list { display: flex; flex-direction: column; gap: 40px; }
+.detailed-feature h3 { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 16px; }
+.emoji { font-size: 22px; margin-right: 4px; }
+.detailed-feature > p { color: #64748b; font-size: 15px; margin-bottom: 24px; }
 
-.empty-state { text-align: center; padding: 80px 0; color: var(--text-muted); }
-.empty-state a { color: #3b82f6; text-decoration: underline; margin-top: 10px; display: inline-block; }
+.mode-block { margin-top: 28px; border-left: 2px solid #e2e8f0; padding-left: 24px; }
+.mode-block h4 { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 12px; }
+.step-guide { font-family: monospace; font-size: 13px; color: #a1a1aa; background: #070a12; padding: 20px; border-radius: 8px; margin: 16px 0; border: 1px solid rgba(255,255,255,0.03); }
+.terminal-style p, .terminal-style ol { line-height: 1.8; color: #a1a1aa; }
+.terminal-style strong { color: #cbd5e1; }
+.terminal-style ol { padding-left: 20px; margin-top: 10px; list-style: decimal; color: #a1a1aa;}
+.terminal-style .comment { color: #475569; }
 
-@media (max-width: 868px) {
-  .dashboard-grid { flex-direction: column; }
-  .panel-header { flex-direction: column; gap: 16px; }
+/* 右侧边栏：内容导航与版本演进 */
+.sticky-sidebar { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 24px; }
+.sidebar-card { background: #ffffff; border-radius: 16px; padding: 24px; border: 1px solid rgba(15, 23, 42, 0.03); box-shadow: 0 10px 20px rgba(15, 23, 42, 0.01); }
+.card-title { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+/* 核心参考：内容导航小贴士 */
+.nav-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.nav-item { font-size: 13.5px; color: #64748b; display: block; text-decoration: none; transition: color 0.2s; }
+.nav-item:hover { color: #2563eb; text-decoration: underline; }
+
+/* 核心参考：版本日志小贴士 */
+.version-timeline { display: flex; flex-direction: column; gap: 24px; }
+.version-item { border-left: 2px solid #e2e8f0; padding-left: 20px; position: relative; }
+.version-item::after { content: ''; position: absolute; left: -5px; top: 0; width: 8px; height: 8px; background: #2563eb; border-radius: 50%; }
+.version-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.v-num { font-size: 13px; font-weight: 700; color: #0f172a; font-family: monospace; }
+.v-date { font-size: 11px; color: #94a3b8; }
+.v-notes { list-style: none; font-size: 12.5px; color: #64748b; display: flex; flex-direction: column; gap: 6px; }
+.v-notes li::before { content: '●'; font-size: 8px; color: #3b82f6; margin-right: 6px; opacity: 0.6;}
+
+/* 兜底状态 */
+.empty-state { text-align: center; padding: 100px 0; color: #64748b; }
+.empty-state a { color: #2563eb; text-decoration: underline; margin-top: 10px; display: inline-block; }
+
+@media (max-width: 968px) {
+  .plugin-hero { padding: 60px 24px 100px; }
+  .hero-content { flex-direction: column; text-align: center; gap: 40px; }
+  .hero-right { justify-content: center; width: 100%; }
+  .video-container { max-width: 100%; height: auto; }
+  .main-layout { flex-direction: column; margin-top: -60px; padding: 0 16px; }
+  .card { padding: 32px 24px; }
 }
 </style>
