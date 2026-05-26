@@ -1,6 +1,6 @@
 export const pluginsData = [
   {
-    id: "panelmaster", // 建议把 ID 改为小写连字符，如 /plugin/panelmaster
+    id: "PanelMaster", // 建议把 ID 改为小写连字符，如 /plugin/panelmaster
     name: "板件大师 (PanelMaster)",
     tagline: "智能对齐、超级拉伸、超级切割",
     version: "V1.2.2",
