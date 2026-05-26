@@ -23,7 +23,7 @@
           <router-link to="/" class="nav-item">插件中心</router-link>
           <span class="nav-status-badge">Enterprise 5.0</span>
           
-          <button class="theme-toggle" @click="toggleTheme" :title="isDark ? '切换到全白明亮模式' : '切换到高质感暗黑模式'">
+          <button class="theme-toggle" @click="toggleTheme" :title="isDark ? '切换到纯净明亮模式' : '切换到科技感暗黑模式'">
             <svg v-if="isDark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
           </button>
@@ -73,7 +73,7 @@ onMounted(() => {
 :root[data-theme="dark"] {
   --bg-main: #0b0f19;
   --bg-navbar: rgba(15, 23, 42, 0.75);
-  --bg-card: rgba(15, 23, 42, 0.4);
+  --bg-card: rgba(15, 23, 42, 0.4); /* 核心修复：暗黑卡片背景保持原样 */
   --bg-footer: #070a12;
   --bg-control: rgba(15, 23, 42, 0.4);
   --bg-terminal: #070a12;
@@ -83,36 +83,32 @@ onMounted(() => {
   --text-title: #ffffff;
   --border-color: rgba(255, 255, 255, 0.06);
   --border-card-hover: rgba(59, 130, 246, 0.3);
-  --search-bg: rgba(15, 23, 42, 0.6);
-  --gradient-title: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
   --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
 :root[data-theme="light"] {
   --bg-main: #f8fafc;
   --bg-navbar: rgba(255, 255, 255, 0.8);
-  --bg-card: #ffffff;
+  --bg-card: #ffffff; /* 核心修复：白昼卡片背景必须是纯雪白 */
   --bg-footer: #f1f5f9;
-  --bg-control: #ffffff;
-  --bg-terminal: #0f172a; /* 终端保持暗色更有极客感 */
-  --bg-item: #f1f5f9;
+  --bg-control: #ffffff; /* 核心修复：白昼控制面板也是纯白 */
+  --bg-terminal: #070a12; /* 终端可以保持暗色极客感，不需要纯白 */
+  --bg-item: #f1f5f9; /* 列表微高亮 */
   --text-main: #334155;
   --text-muted: #64748b;
   --text-title: #0f172a;
   --border-color: #e2e8f0;
   --border-card-hover: rgba(37, 99, 235, 0.4);
-  --search-bg: #ffffff;
-  --gradient-title: linear-gradient(135deg, #0f172a 30%, #475569 100%);
   --shadow-card: 0 10px 25px rgba(148, 163, 184, 0.12);
 }
 
 /* 基础架构自适应渲染 */
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-body { background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background-color 0.3s ease, color 0.3s ease; }
+body { background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background-color 0.1s ease, color 0.1s ease; /* 加快过渡速度，减少残留灰 */ }
 a { text-decoration: none; color: inherit; }
 
 /* 导航栏 */
-.navbar { background: var(--bg-navbar); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; transition: background-color 0.3s, border-color 0.3s; }
+.navbar { background: var(--bg-navbar); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; transition: background-color 0.1s, border-color 0.1s; }
 .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 72px; display: flex; align-items: center; justify-content: space-between; }
 
 .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; }
@@ -127,7 +123,7 @@ a { text-decoration: none; color: inherit; }
 .nav-status-badge { font-size: 11px; font-weight: 600; background: rgba(59,130,246,0.1); color: #3b82f6; border: 1px solid rgba(59,130,246,0.2); padding: 2px 10px; border-radius: 99px; }
 
 /* 皮肤切换专属按钮 */
-.theme-toggle { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.theme-toggle { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.1s; }
 .theme-toggle:hover { background: var(--bg-item); border-color: #3b82f6; color: #3b82f6; }
 
 .main-content { max-width: 1200px; margin: 0 auto; padding: 40px 24px; min-height: calc(100vh - 240px); }
@@ -135,7 +131,7 @@ a { text-decoration: none; color: inherit; }
 .fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
-.footer { border-top: 1px solid var(--border-color); padding: 40px 24px; background: var(--bg-footer); text-align: center; margin-top: 80px; transition: background-color 0.3s, border-color 0.3s; }
+.footer { border-top: 1px solid var(--border-color); padding: 40px 24px; background: var(--bg-footer); text-align: center; margin-top: 80px; transition: background-color 0.1s, border-color 0.1s; }
 .footer-content { max-width: 1200px; margin: 0 auto; }
 .copyright { color: var(--text-muted); font-size: 13px; font-weight: 500; }
 .footer-hint { color: var(--text-muted); opacity: 0.6; font-size: 12px; margin-top: 4px; }
