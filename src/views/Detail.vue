@@ -1,4 +1,5 @@
 <template>
+  <div>天天天天天天天天天</div>
   <div v-if="plugin" class="modern-detail-wrapper">
     <header class="plugin-hero">
       <div class="hero-content">
