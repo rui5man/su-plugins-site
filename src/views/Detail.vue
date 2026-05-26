@@ -1,5 +1,4 @@
 <template>
-  <div>天天天天天天天天天</div>
   <div v-if="plugin" class="modern-detail-wrapper">
     <header class="plugin-hero">
       <div class="hero-content">
@@ -69,8 +68,7 @@
                 <p>用于将整合板件、组件贴合到指定的平面或参考线上。</p>
               </div>
             </div>
-            
-            </div>
+          </div>
         </div>
       </article>
 
@@ -83,7 +81,6 @@
             </h3>
             <ul class="nav-links">
               <li><a href="#core-features" class="nav-item">核心功能介绍</a></li>
-              <li><a href="#usage-tips" class="nav-item">使用小贴士</a></li>
             </ul>
           </nav>
           
@@ -100,7 +97,7 @@
                 </div>
                 <ul class="v-notes">
                   <li v-for="(note, nIdx) in log.notes" :key="nIdx">{{ note }}</li>
-                </div>
+                </ul>
               </div>
             </div>
           </section>
@@ -110,7 +107,7 @@
   </div>
 
   <div v-else class="empty-state card">
-    <h3>未检索到相关产品详页</h3>
+    <h3>未检索到相关产品详情页</h3>
     <router-link to="/">返回系统控制中心</router-link>
   </div>
 </template>
@@ -122,13 +119,13 @@ import { pluginsData } from '../data/plugins.js';
 
 const route = useRoute();
 const plugin = computed(() => {
-  return pluginsData.find(p => p.id === route.params.id);
+  // 确保这里的寻找逻辑鲁棒性，同时兼容大小写不一致
+  return pluginsData.find(p => p.id.toLowerCase() === route.params.id.toLowerCase());
 });
 
-// 处理下载请求 (由于代码已加密保护，这里仍保留安全提示)
 const handleSecureDownload = () => {
-  if (plugin.value && plugin.value.id === 'opennewer') {
-    window.location.href = plugin.value.rbzUrl; // 免费插件直接下载
+  if (plugin.value && plugin.value.id.toLowerCase() === 'opennewer') {
+    window.location.href = plugin.value.rbzUrl;
   } else {
     alert(`【系统安全提示】${plugin.value.name} (${plugin.value.version}) 企业级插件已启动全代码加密。如需索取企业内部授权安装包(.rbz)或申请生产线绑定许可，请通过工厂内部对接通道联系开发团队获取凭证。`);
   }
@@ -136,90 +133,64 @@ const handleSecureDownload = () => {
 </script>
 
 <style scoped>
-.modern-detail-wrapper { color: #0f172a; position: relative; }
-
-/* 完全重构的首屏布局 (Hero Section) */
-.plugin-hero { background: #ffffff; padding: 100px 24px 80px; border-bottom: 1px solid #f1f5f9; position: relative; overflow: hidden; }
+.modern-detail-wrapper { color: #0f172a; position: relative; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8fafc; min-height: 100vh; padding-bottom: 100px; }
+.plugin-hero { background: #ffffff; padding: 120px 24px 80px; border-bottom: 1px solid #e2e8f0; }
 .hero-content { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 60px; }
-.hero-left { flex: 1; }
-.hero-right { flex: 1; display: flex; justify-content: flex-end; }
-
+.hero-left { flex: 1.2; }
+.hero-right { flex: 0.8; display: flex; justify-content: flex-end; }
 .hero-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-.status-badge { font-size: 11px; font-weight: 700; background: #2563eb; color: #ffffff; padding: 4px 12px; border-radius: 99px; letter-spacing: 0.5px; text-transform: uppercase; }
+.status-badge { font-size: 11px; font-weight: 700; background: #2563eb; color: #ffffff; padding: 4px 12px; border-radius: 99px; letter-spacing: 0.5px; }
 .pulse { box-shadow: 0 0 0 rgba(37,99,235, 0.4); animation: pulse 2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,99,235, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(37,99,235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37,99,235, 0); } }
-.views-count { font-size: 12px; color: #64748b; }
-
-.plugin-title { font-size: 48px; font-weight: 800; color: #0f172a; margin-bottom: 16px; letter-spacing: -2px; line-height: 1.1; }
-.plugin-subtitle { font-size: 16px; color: #64748b; margin-bottom: 40px; line-height: 1.6; }
-
-/* 核心参考：醒目的下载按钮 */
-.primary-download-btn { display: inline-flex; align-items: center; gap: 12px; background: #2563eb; color: #ffffff; padding: 16px 28px; border-radius: 99px; font-size: 15px; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.2); }
-.primary-download-btn:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 15px 25px -8px rgba(37, 99, 235, 0.3); }
+.views-count { font-size: 12px; color: #64748b; font-weight: 600; }
+.plugin-title { font-size: 44px; font-weight: 800; color: #0f172a; margin-bottom: 16px; letter-spacing: -1px; line-height: 1.2; }
+.plugin-subtitle { font-size: 16px; color: #475569; margin-bottom: 40px; line-height: 1.6; }
+.primary-download-btn { display: inline-flex; align-items: center; gap: 12px; background: #2563eb; color: #ffffff; padding: 16px 32px; border-radius: 99px; font-size: 15px; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3); text-decoration: none; }
+.primary-download-btn:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.4); }
 .icon-download { width: 18px; height: 18px; }
-
-/* 核心参考：Bilibili 视频播放器悬浮效果 */
-.video-container { width: 100%; max-width: 580px; height: 330px; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.1); border: 1px solid rgba(15, 23, 42, 0.05); }
-.bilibili-player { width: 100%; height: 290px; border: none; }
-.player-controls { display: flex; align-items: center; gap: 12px; padding: 0 16px; height: 40px; background: rgba(15, 23, 42, 0.8); color: rgba(255, 255, 255, 0.6); font-size: 11px; font-family: monospace; border-top: 1px solid rgba(255,255,255,0.08); }
-.progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
-.progress-fill { width: 35%; height: 100%; background: #2563eb; border-radius: 2px; }
-
-/* 主体布局与呼吸感 */
-.main-layout { max-width: 1200px; margin: -60px auto 0; padding: 0 24px; display: flex; gap: 32px; position: relative; z-index: 2; }
-.content-left { flex: 2; min-width: 0; }
+.video-container { width: 100%; max-width: 480px; height: 280px; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.15); border: 1px solid rgba(15, 23, 42, 0.05); background: #000; }
+.bilibili-player { width: 100%; height: 242px; border: none; }
+.player-controls { display: flex; align-items: center; gap: 12px; padding: 0 16px; height: 38px; background: #0f172a; color: rgba(255, 255, 255, 0.6); font-size: 11px; font-family: monospace; }
+.progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; }
+.progress-fill { width: 45%; height: 100%; background: #2563eb; border-radius: 2px; }
+.main-layout { max-width: 1200px; margin: -40px auto 0; padding: 0 24px; display: flex; gap: 32px; position: relative; z-index: 10; }
+.content-left { flex: 1.7; min-width: 0; }
 .content-right { flex: 1; min-width: 0; }
-
-.card { background: #ffffff; border-radius: 16px; padding: 48px; border: 1px solid rgba(15, 23, 42, 0.03); box-shadow: 0 10px 20px rgba(15, 23, 42, 0.01); }
-
-/* 详尽的功能内容部分 */
-.doc-section { margin-bottom: 60px; }
-.section-title { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 36px; display: flex; align-items: center; gap: 12px; letter-spacing: -0.5px; }
-.section-icon { width: 28px; height: 28px; }
-
+.card { background: #ffffff; border-radius: 20px; padding: 40px; border: 1px solid rgba(15, 23, 42, 0.04); box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.03); }
+.section-title { font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }
+.section-icon { width: 26px; height: 26px; object-fit: contain; }
 .features-detailed-list { display: flex; flex-direction: column; gap: 40px; }
-.detailed-feature h3 { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 16px; }
-.emoji { font-size: 22px; margin-right: 4px; }
-.detailed-feature > p { color: #64748b; font-size: 15px; margin-bottom: 24px; }
-
-.mode-block { margin-top: 28px; border-left: 2px solid #e2e8f0; padding-left: 24px; }
-.mode-block h4 { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 12px; }
-.step-guide { font-family: monospace; font-size: 13px; color: #a1a1aa; background: #070a12; padding: 20px; border-radius: 8px; margin: 16px 0; border: 1px solid rgba(255,255,255,0.03); }
-.terminal-style p, .terminal-style ol { line-height: 1.8; color: #a1a1aa; }
-.terminal-style strong { color: #cbd5e1; }
-.terminal-style ol { padding-left: 20px; margin-top: 10px; list-style: decimal; color: #a1a1aa;}
-.terminal-style .comment { color: #475569; }
-
-/* 右侧边栏：内容导航与版本演进 */
-.sticky-sidebar { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 24px; }
-.sidebar-card { background: #ffffff; border-radius: 16px; padding: 24px; border: 1px solid rgba(15, 23, 42, 0.03); box-shadow: 0 10px 20px rgba(15, 23, 42, 0.01); }
-.card-title { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-
-/* 核心参考：内容导航小贴士 */
+.detailed-feature h3 { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 14px; }
+.emoji { font-size: 20px; margin-right: 4px; }
+.detailed-feature > p { color: #475569; font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
+.mode-block { margin-top: 24px; border-left: 3px solid #e2e8f0; padding-left: 20px; }
+.mode-block h4 { font-size: 15px; font-weight: 600; color: #0f172a; margin-bottom: 10px; }
+.step-guide { font-family: SFMono-Regular, Consolas, Monaco, monospace; font-size: 13px; color: #94a3b8; background: #0f172a; padding: 20px; border-radius: 12px; margin: 16px 0; }
+.terminal-style p, .terminal-style ol { line-height: 1.8; color: #cbd5e1; }
+.terminal-style strong { color: #ffffff; }
+.terminal-style ol { padding-left: 20px; margin-top: 8px; list-style: decimal; }
+.terminal-style .comment { color: #64748b; }
+.sticky-sidebar { position: sticky; top: 40px; display: flex; flex-direction: column; gap: 24px; }
+.sidebar-card { background: #ffffff; border-radius: 20px; padding: 28px; border: 1px solid rgba(15, 23, 42, 0.04); box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.03); }
+.card-title { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; }
 .nav-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.nav-item { font-size: 13.5px; color: #64748b; display: block; text-decoration: none; transition: color 0.2s; }
-.nav-item:hover { color: #2563eb; text-decoration: underline; }
-
-/* 核心参考：版本日志小贴士 */
+.nav-item { font-size: 14px; color: #475569; display: block; text-decoration: none; transition: color 0.2s; }
+.nav-item:hover { color: #2563eb; }
 .version-timeline { display: flex; flex-direction: column; gap: 24px; }
 .version-item { border-left: 2px solid #e2e8f0; padding-left: 20px; position: relative; }
-.version-item::after { content: ''; position: absolute; left: -5px; top: 0; width: 8px; height: 8px; background: #2563eb; border-radius: 50%; }
-.version-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.version-item::after { content: ''; position: absolute; left: -5px; top: 4px; width: 8px; height: 8px; background: #2563eb; border-radius: 50%; }
+.version-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .v-num { font-size: 13px; font-weight: 700; color: #0f172a; font-family: monospace; }
 .v-date { font-size: 11px; color: #94a3b8; }
-.v-notes { list-style: none; font-size: 12.5px; color: #64748b; display: flex; flex-direction: column; gap: 6px; }
-.v-notes li::before { content: '●'; font-size: 8px; color: #3b82f6; margin-right: 6px; opacity: 0.6;}
-
-/* 兜底状态 */
+.v-notes { list-style: none; font-size: 13px; color: #475569; display: flex; flex-direction: column; gap: 8px; padding-left: 0; }
+.v-notes li { line-height: 1.5; }
 .empty-state { text-align: center; padding: 100px 0; color: #64748b; }
 .empty-state a { color: #2563eb; text-decoration: underline; margin-top: 10px; display: inline-block; }
 
 @media (max-width: 968px) {
-  .plugin-hero { padding: 60px 24px 100px; }
+  .plugin-hero { padding: 80px 24px 60px; }
   .hero-content { flex-direction: column; text-align: center; gap: 40px; }
   .hero-right { justify-content: center; width: 100%; }
-  .video-container { max-width: 100%; height: auto; }
-  .main-layout { flex-direction: column; margin-top: -60px; padding: 0 16px; }
-  .card { padding: 32px 24px; }
+  .main-layout { flex-direction: column; margin-top: 20px; padding: 0 16px; }
 }
 </style>
