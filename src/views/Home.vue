@@ -53,7 +53,18 @@ const filteredPlugins = computed(() => {
 .hero-section { text-align: center; position: relative; padding: 60px 0 80px; }
 .glow-effect { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 260px; background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(0,0,0,0) 70%); filter: blur(40px); pointer-events: none; }
 
-.gradient-title { font-size: 44px; font-weight: 800; background: var(--gradient-title); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 16px; }
+.gradient-title { 
+  font-size: 44px; 
+  font-weight: 800; 
+  /* 修复：直接注入具有高级工业灵魂的深灰到蓝靛色渐变，彻底解决无法显现的问题 */
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2563eb 100%); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  letter-spacing: -1px; 
+  margin-bottom: 16px; 
+  /* 兜底颜色：万一浏览器不兼容渐变文字，自动呈现优雅的暗岩灰 */
+  color: #0f172a; 
+}
 .hero-subtitle { font-size: 16px; color: var(--text-muted); max-width: 600px; margin: 0 auto 36px; font-weight: 400; }
 
 .search-wrapper { max-width: 520px; margin: 0 auto; position: relative; }
