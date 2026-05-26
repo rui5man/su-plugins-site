@@ -106,9 +106,9 @@ const triggerSecureRequest = () => {
 .back-nav:hover { color: #3b82f6; }
 
 /* 头部面板自适应 */
-.panel-header { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 32px; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; box-shadow: var(--shadow-card); transition: all 0.3s ease; }
+.panel-header { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 32px; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; box-shadow: var(--shadow-card); transition: all 0.1s ease; }
 .panel-header-left { display: flex; gap: 24px; align-items: center; }
-.icon-shield { background: var(--bg-main); border: 1px solid var(--border-color); padding: 14px; border-radius: 14px; }
+.icon-shield { background: var(--bg-main); border: 1px solid var(--border-color); padding: 14px; border-radius: 14px; transition: background-color 0.1s; }
 .icon-shield img { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; }
 
 .badge-group { display: flex; gap: 8px; margin-bottom: 8px; }
@@ -129,7 +129,7 @@ const triggerSecureRequest = () => {
 .indicator { width: 3px; height: 14px; background: #3b82f6; border-radius: 2px; }
 
 .features-block { display: flex; flex-direction: column; gap: 12px; }
-.feature-item-row { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; box-shadow: var(--shadow-card); }
+.feature-item-row { background: var(--bg-card); /* 核心修复：列表行背景必须强制沿用定义好的卡片背景色（白昼模式下为纯白） */ border: 1px solid var(--border-color); border-radius: 8px; padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; box-shadow: var(--shadow-card); transition: all 0.1s ease; }
 .row-num { font-family: monospace; font-weight: 700; color: #3b82f6; font-size: 14px; padding-top: 1px; }
 .row-content { font-size: 13.5px; color: var(--text-main); line-height: 1.6; }
 
@@ -145,8 +145,8 @@ const triggerSecureRequest = () => {
 .comment { color: #475569; }
 .code-text { color: #cbd5e1; white-space: pre-line; }
 
-/* 右侧侧边栏 */
-.control-box { background: var(--bg-control); border: 1px solid var(--border-color); border-radius: 14px; padding: 24px; position: sticky; top: 100px; box-shadow: var(--shadow-card); }
+/* 右侧侧边栏自适应 */
+.control-box { background: var(--bg-control); border: 1px solid var(--border-color); border-radius: 14px; padding: 24px; position: sticky; top: 100px; box-shadow: var(--shadow-card); transition: all 0.1s ease; }
 [data-theme="dark"] .control-box { border-color: rgba(59, 130, 246, 0.2); } /* 暗黑模式下侧边栏加点微弱蓝光 */
 .control-box h3 { font-size: 15px; font-weight: 600; color: var(--text-title); margin-bottom: 20px; }
 .meta-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
