@@ -41,7 +41,7 @@
       <article class="content-left card">
         <div id="core-features" class="section">
           <h2 class="section-title">
-            <img src="/src/assets/rocket.png" alt="features" class="section-icon" />
+            <img src="/rocket.png" alt="features" class="section-icon" />
             核心功能介绍
           </h2>
           <div class="features-detailed-list">
