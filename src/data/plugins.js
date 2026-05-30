@@ -110,7 +110,7 @@ export const pluginsData = [
     version: "V1.0.0",
     updateDate: "2026-05-30",
     icon: "1200",
-    coverImage: "https://s3.bmp.ovh/2026/05/30/uUPNThEd.png",
+    coverImage: "https://img0.baidu.com/it/u=2106971498,1397014186&fm=253&fmt=auto&app=138&f=JPEG",
     views: 583,
     category: "免费",
     summary: "专为3D打印开发的实用齿轮生成器",
