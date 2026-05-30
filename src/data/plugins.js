@@ -86,7 +86,7 @@ export const pluginsData = [
     version: "V1.0.0",
     updateDate: "2026-05-30",
     icon: "",
-    coverImage: "http://fk.920789.xyz/uploads/images/b90da07f90f6dc87f92ff3951f57b2d3.png",
+    coverImage: "https://s3.bmp.ovh/2026/05/30/uUPNThEd.png",
     views: 1100,
     category: "免费",
     summary: "通过提供智能化的辅助线生成功能，简化了传统手动绘制辅助线的繁琐流程",
