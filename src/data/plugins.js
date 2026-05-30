@@ -62,7 +62,7 @@ export const pluginsData = [
     version: "V1.0.0",
     updateDate: "2026-05-27",
     icon: "",
-    coverImage: "http://fk.920789.xyz/uploads/images/274059179c39982d99c8c54917de6409.png",
+    coverImage: "https://s41.ax1x.com/2026/05/30/pmkuWIx.png",
     views: 912,
     category: "免费",
     summary: "智能的开洞与板件处理功能，解决了传统建模中处理镂空结构繁琐、难以调整的痛点",
